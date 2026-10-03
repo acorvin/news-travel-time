@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap">
 <style>
 :root{
-  --ground:#ebecea;
+  --ground:#ffffff;
   --ink:#1c1e21;
   --ink-2:#55585e;
   --ink-3:#8b8e93;
@@ -425,9 +425,9 @@ let lastW = stage.parentNode.clientWidth;
 let rt = 0;
 new ResizeObserver(() => { const w = stage.parentNode.clientWidth; if (w === lastW) return; clearTimeout(rt); rt = setTimeout(() => { lastW = stage.parentNode.clientWidth; layout(); }, 150); }).observe(document.body);
 
-// report the page height to an embedding page
+// report the page height to an embedding page; scrollHeight would never drop below the frame's own height
 let lastH = 0;
-const post = () => { const h = Math.ceil(document.documentElement.scrollHeight); if (h !== lastH) { lastH = h; window.parent.postMessage({type: 'news-travel-time-height', height: h}, '*'); } };
+const post = () => { const h = Math.ceil(document.documentElement.getBoundingClientRect().height); if (h !== lastH) { lastH = h; window.parent.postMessage({type: 'news-travel-time-height', height: h}, '*'); } };
 new ResizeObserver(post).observe(document.body); post();
 })();
 </script>
