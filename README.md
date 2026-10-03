@@ -96,4 +96,4 @@ The Library of Congress search sits behind a bot check that scripts cannot pass,
 - The GDELT Project, Global Knowledge Graph 2.1.
 - US Census Bureau, 2024 Gazetteer Files.
 
-Code under the MIT License. Alex Corvin, 2026.
+© 2026 Alex Corvin. All rights reserved. The page, design and code may not be reused without permission. The newspaper pages come from the Library of Congress and are in the public domain; the website records come from the GDELT Project, under its own terms.
