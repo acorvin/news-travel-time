@@ -1,0 +1,38 @@
+# Caches and downloads that the scripts re-create. The newspaper tables in
+# data/raw/newspapers/ are kept, because the newspaper pass runs in a browser
+# and cannot be repeated unattended.
+data/raw/cache/
+data/raw/gazetteer/
+data/raw/*.json
+data/raw/*.log
+data/raw/_synthetic/
+
+# Secrets and local config
+.env
+.env.*
+*.pem
+*.key
+secrets.*
+credentials*.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Editors and OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Deploy tooling
+.netlify/
+.vercel/
+node_modules/
+_to_delete/

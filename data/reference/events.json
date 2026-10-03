@@ -1,0 +1,345 @@
+{
+  "_note": "Events measured in the study. Times are local to the origin unless marked UTC.",
+  "eras": [
+    {
+      "group": "post",
+      "name": "Horse and sail",
+      "events": [
+        "washington-1799",
+        "ghent-1814"
+      ]
+    },
+    {
+      "group": "telegraph",
+      "name": "The telegraph arrives",
+      "events": [
+        "jackson-1845",
+        "taylor-1850",
+        "lincoln-1865"
+      ]
+    },
+    {
+      "group": "radio",
+      "name": "Wireless, radio and television",
+      "events": [
+        "titanic-1912",
+        "pearl-harbor-1941",
+        "kennedy-1963"
+      ]
+    },
+    {
+      "group": "internet",
+      "name": "The web",
+      "events": [
+        "notre-dame-2019",
+        "elizabeth-2022",
+        "turkey-syria-2023"
+      ]
+    }
+  ],
+  "newspaper_events": [
+    {
+      "id": "washington-1799",
+      "label": "Death of George Washington",
+      "short": "Washington dies",
+      "origin": "Mount Vernon, Virginia",
+      "lat": 38.7293,
+      "lon": -77.1073,
+      "date": "1799-12-14",
+      "time_local": "22:30",
+      "utc_offset": -5,
+      "first_valid": "1799-12-15",
+      "window_end": "1800-03-15",
+      "carrier": "post rider and coastal packet",
+      "queries": [
+        "washington death",
+        "washington deceased",
+        "washington died",
+        "late general washington",
+        "wafhington"
+      ],
+      "verify": "(death|died|dece[sf]?[sf]e|demi[sf]e|lo[sf][sf]|funeral|obsequies|eulog\\w*|mourn\\w*)\\W+(?:\\w+\\W+){0,6}?(?:gen\\w*\\W+|general\\W+)?(?:george\\W+)?wa[sf]hington|wa[sf]hington\\W+(?:\\w+\\W+){0,3}?(is\\W+)?(dead|no\\W+more|expired|departed)|late\\W+(?:gen\\w*\\W+|general\\W+|illu[sf]trious\\W+)(?:george\\W+)?wa[sf]hington",
+      "time_text": "between 10 and 11 p.m.",
+      "context": "Washington died at Mount Vernon, his home on the Potomac, late on a Saturday evening. The news travelled by horse and by ship.",
+      "phrase": "George Washington died"
+    },
+    {
+      "id": "ghent-1814",
+      "label": "Treaty of Ghent signed",
+      "short": "Peace at Ghent",
+      "origin": "Ghent, Belgium",
+      "lat": 51.0543,
+      "lon": 3.7174,
+      "date": "1814-12-24",
+      "time_local": "18:00",
+      "utc_offset": 0,
+      "first_valid": "1815-02-11",
+      "window_end": "1815-04-15",
+      "carrier": "sailing ship across the Atlantic",
+      "queries": [
+        "ghent treaty",
+        "ghent peace",
+        "treaty peace signed",
+        "peace signed"
+      ],
+      "verify": "(treaty|peace)\\W+(?:\\w+\\W+){0,8}?(was\\W+|has\\W+been\\W+|were\\W+)?(signed|concluded)\\b|signed\\W+(?:\\w+\\W+){0,3}?ghent|ratif\\w+\\W+(?:\\w+\\W+){0,6}?treaty|treaty\\W+(?:\\w+\\W+){0,6}?ratif\\w+",
+      "time_text": "evening",
+      "context": "The treaty crossed the Atlantic on HMS Favorite, which anchored off Sandy Hook, New York, on 11 February 1815. While it was at sea, the Battle of New Orleans was fought on 8 January. New Orleans itself heard of the peace in mid-March.",
+      "reject_near": "tribes of indians|indian tribes|brownstown",
+      "phrase": "the Treaty of Ghent was signed"
+    },
+    {
+      "id": "jackson-1845",
+      "label": "Death of Andrew Jackson",
+      "short": "Jackson dies",
+      "origin": "The Hermitage, Nashville, Tennessee",
+      "lat": 36.2153,
+      "lon": -86.6133,
+      "date": "1845-06-08",
+      "time_local": "18:00",
+      "utc_offset": -6,
+      "first_valid": "1845-06-09",
+      "window_end": "1845-08-31",
+      "carrier": "mail by steamboat, stage and rail",
+      "queries": [
+        "death jackson",
+        "jackson hermitage"
+      ],
+      "verify": "(death|died|dece[sf]e|demi[sf]e|funeral|obsequies|eulog\\w*|mourn\\w*)\\W+(?:\\w+\\W+){0,6}?(?:gen\\w*\\W+|general\\W+|president\\W+)?(?:andrew\\W+)?jackson|jackson\\W+(?:\\w+\\W+){0,3}?(is\\W+)?(dead|no\\W+more|expired|departed)",
+      "time_text": "",
+      "context": "Jackson died at the Hermitage, his home outside Nashville. The first telegraph line, between Washington and Baltimore, had opened the year before.",
+      "reject_near": "without foundation|unfounded|not yet|premature|contradict|not dead|not true|false report|sir richard|richard d|montreal",
+      "phrase": "Andrew Jackson died"
+    },
+    {
+      "id": "taylor-1850",
+      "label": "Death of Zachary Taylor",
+      "short": "Taylor dies",
+      "origin": "The White House, Washington, D.C.",
+      "lat": 38.8977,
+      "lon": -77.0365,
+      "date": "1850-07-09",
+      "time_local": "22:35",
+      "utc_offset": -5,
+      "first_valid": "1850-07-10",
+      "window_end": "1850-09-15",
+      "carrier": "early telegraph and mail",
+      "queries": [
+        "death president taylor",
+        "taylor dead"
+      ],
+      "verify": "(death|died|dece[sf]e|demi[sf]e|funeral|obsequies|eulog\\w*|mourn\\w*)\\W+(?:\\w+\\W+){0,6}?(?:gen\\w*\\W+|general\\W+|president\\W+)?(?:zachary\\W+)?(taylor|the\\W+president)|taylor\\W+(?:\\w+\\W+){0,3}?(is\\W+)?(dead|no\\W+more|expired)|fillmore\\W+(?:\\w+\\W+){0,6}?(oath|inaugurat\\w*|sworn)",
+      "time_text": "10:35 p.m.",
+      "context": "Taylor died in the White House after a short illness. Telegraph lines now linked many eastern cities, but not yet the West.",
+      "phrase": "Zachary Taylor died"
+    },
+    {
+      "id": "lincoln-1865",
+      "label": "Assassination of Abraham Lincoln",
+      "short": "Lincoln shot",
+      "origin": "Ford's Theatre, Washington, D.C.",
+      "lat": 38.8967,
+      "lon": -77.0257,
+      "date": "1865-04-14",
+      "time_local": "22:15",
+      "utc_offset": -5,
+      "first_valid": "1865-04-15",
+      "window_end": "1865-05-15",
+      "carrier": "telegraph",
+      "queries": [
+        "lincoln assassination",
+        "lincoln assassinated"
+      ],
+      "verify": "a[sf][sf]a[sf][sf]in|lincoln\\W+(?:\\w+\\W+){0,4}?(dead|died|shot|murder\\w*)|(death|murder\\w*|funeral|obsequies|mourn\\w*)\\W+(?:\\w+\\W+){0,6}?(lincoln|the\\W+president)",
+      "time_text": "about 10:15 p.m.",
+      "context": "Lincoln was shot at Ford's Theatre and died the next morning. The telegraph had reached California in 1861.",
+      "trust_search": "all",
+      "phrase": "Abraham Lincoln was shot"
+    },
+    {
+      "id": "titanic-1912",
+      "label": "Sinking of the Titanic",
+      "short": "Titanic sinks",
+      "origin": "North Atlantic, 600 km south of Newfoundland",
+      "lat": 41.7258,
+      "lon": -49.9469,
+      "date": "1912-04-14",
+      "time_local": "23:40",
+      "utc_offset": -2.9667,
+      "first_valid": "1912-04-15",
+      "window_end": "1912-04-29",
+      "carrier": "wireless, then telegraph",
+      "queries": [
+        "titanic"
+      ],
+      "verify": "titanic",
+      "time_text": "11:40 p.m. ship's time",
+      "context": "The ship struck the iceberg at 11:40 p.m. ship's time, 9:38 p.m. in New York, and sank at 2:20 a.m. The first news came by wireless.",
+      "front_pages_only": true,
+      "trust_search": "all",
+      "phrase": "the Titanic sank"
+    },
+    {
+      "id": "pearl-harbor-1941",
+      "label": "Attack on Pearl Harbor",
+      "short": "Pearl Harbor",
+      "origin": "Pearl Harbor, Hawaii",
+      "lat": 21.3649,
+      "lon": -157.95,
+      "date": "1941-12-07",
+      "time_local": "07:48",
+      "utc_offset": -10.5,
+      "first_valid": "1941-12-07",
+      "window_end": "1941-12-21",
+      "carrier": "radio and wire services",
+      "queries": [
+        "pearl harbor",
+        "attack hawaii"
+      ],
+      "verify": "(attack\\w*|bomb\\w*|raid\\w*|struck)\\W+(?:\\w+\\W+){0,8}?(pearl\\W+harbou?r|hawaii|honolulu|oahu|manila)|(pearl\\W+harbou?r|hawaii|honolulu|oahu)\\W+(?:\\w+\\W+){0,8}?(attack\\w*|bomb\\w*|raid\\w*)",
+      "time_text": "7:48 a.m. Hawaiian time",
+      "context": "The attack began at 7:48 on a Sunday morning in Hawaii, early afternoon on the East Coast. Radio carried the news first; many papers printed extra editions.",
+      "front_pages_only": true,
+      "trust_search": "after-first-day",
+      "phrase": "Pearl Harbor was attacked"
+    },
+    {
+      "id": "kennedy-1963",
+      "label": "Assassination of John F. Kennedy",
+      "short": "Kennedy shot",
+      "origin": "Dealey Plaza, Dallas, Texas",
+      "lat": 32.7788,
+      "lon": -96.8084,
+      "date": "1963-11-22",
+      "time_local": "12:30",
+      "utc_offset": -6,
+      "first_valid": "1963-11-22",
+      "window_end": "1963-12-06",
+      "carrier": "wire services, radio and television",
+      "queries": [
+        "kennedy shot",
+        "kennedy assassinated",
+        "kennedy slain"
+      ],
+      "verify": "kennedy\\W+(?:\\w+\\W+){0,6}?(shot|assassinat\\w*|slain|killed|dead|dies|died|wounded|murder\\w*)|(assassin\\w*|sniper|shot|slain|bullet\\w*|gunfire)\\W+(?:\\w+\\W+){0,8}?(kennedy|the\\W+president)",
+      "time_text": "12:30 p.m. Dallas time",
+      "context": "Kennedy was shot in his motorcade in Dallas and died half an hour later. The first wire bulletin went out four minutes after the shots, and television broke into its programmes soon after.",
+      "front_pages_only": true,
+      "trust_search": "after-first-day",
+      "phrase": "John F. Kennedy was shot"
+    }
+  ],
+  "web_events": [
+    {
+      "id": "notre-dame-2019",
+      "label": "Notre-Dame de Paris fire",
+      "short": "Notre-Dame fire",
+      "origin": "Paris, France",
+      "lat": 48.853,
+      "lon": 2.3499,
+      "utc": "2019-04-15T16:18:00Z",
+      "public_utc": "2019-04-15T16:43:00Z",
+      "carrier": "the web",
+      "time_text": "18:18 Paris time",
+      "context": "The fire alarm sounded at 18:18, but the fire itself was found only at 18:43, after a second alarm. The spire fell at 19:50.",
+      "match": [
+        {
+          "pattern": "notre[\\s_-]*dame|нотр[\\s-]*дам|ノートルダム|巴黎圣母院|巴黎聖母院|노트르담|نوتردام|נוטרדאם|παναγία των παρισίων|notrdam",
+          "fields": [
+            "url",
+            "title",
+            "names",
+            "places"
+          ]
+        },
+        {
+          "pattern": "\\bfires?\\b|_fire|\\bblaze|\\bflames?\\b|\\bburn(s|ing|ed|t)?\\b|incendi|\\bfeu\\b|\\bbrand|fuego|fogo|incêndio|po[żž]ar|пожар|горит|сгор|火災|火灾|大火|燃|화재|yang[ıi]n|حريق|שריפה|φωτιά|πυρκαγιά|tulipalo|\\bbrann|tűz|kebakaran|cháy|ไฟไหม้|आग",
+          "fields": [
+            "url",
+            "title",
+            "themes"
+          ]
+        },
+        {
+          "pattern": "paris|parigi|parís|париж|パリ|巴黎|파리|باريس|פריז|παρίσι|cathedral|cathédrale|catedral|kathedrale|cattedrale|katedr|собор|大聖堂|大教堂|대성당|كاتدرائية|καθεδρικ",
+          "fields": [
+            "url",
+            "title",
+            "names",
+            "places"
+          ]
+        }
+      ],
+      "phrase": "Notre-Dame de Paris caught fire"
+    },
+    {
+      "id": "elizabeth-2022",
+      "label": "Death of Elizabeth II",
+      "short": "Elizabeth II dies",
+      "origin": "Balmoral Castle, Scotland",
+      "lat": 57.0413,
+      "lon": -3.2304,
+      "utc": "2022-09-08T14:10:00Z",
+      "public_utc": "2022-09-08T17:30:00Z",
+      "carrier": "the web",
+      "time_text": "15:10 UK time",
+      "context": "The Queen died at Balmoral at 15:10. Her death was announced at 18:30, three hours and twenty minutes later.",
+      "match": [
+        {
+          "pattern": "elizabeth|isabel|elisabeth|el[żz]bieta|elisabetta|élisabeth|elizabet|erzsébet|alžbet|елизавет|єлизавет|елисавет|ελισάβετ|伊丽莎白|伊莉莎白|エリザベス|엘리자베스|إليزابيث|אליזבת|queen|reina|reine|königin|regina|rainha|królowa|královn|kráľovn|királyn|regin|королев|βασίλισσα|女王|여왕|ملكة|מלכה|ratu|kraliçe|kraljic|drottning|dronning|kuningatar|koningin",
+          "fields": [
+            "url",
+            "title",
+            "names"
+          ]
+        },
+        {
+          "pattern": "\\b(dies|died|dead|death|passe[sd] away|rip|r\\.i\\.p|obituary)\\b|décè|décéd|meurt|\\bmorte\\b|disparition|morreu|\\bmorre\\b|faleceu|falece|muere|murió|fallec|ha muerto|è morta|\\bmorta\\b|muore|scomparsa|addio|gestorben|verstorben|stirbt|\\btot\\b|\\btod\\b|overl[ei]d|sterft|\\bdød|\\bdøde|\\bdöd|avliden|kuoli|kuollut|\\bmor\\b|ha mort|zmarła|nie żyje|zemřela|zomrela|umrla|umrla|preminula|elhunyt|meghalt|elhalálozott|a murit|decedat|s-a stins|mirė|mirusi|\\bsuri\\b|\\bvdiq|умерла|скончалась|смерть|кончина|померла|почина|почин|πέθανε|απεβίωσε|θάνατος|öldü|hayatını kaybetti|vefat|hayata gözlerini|去世|逝世|离世|離世|病逝|辞世|死去|逝去|崩御|亡くな|별세|서거|사망|타계|meninggal|wafat|mangkat|tutup usia|pumanaw|qua đời|băng hà|สวรรคต|สิ้นพระชนม์|afariki|توفيت|وفاة|رحيل|درگذشت|انتقال|נפטרה|מתה|निधन|मृत्यु|প্রয়াত",
+          "fields": [
+            "url",
+            "title"
+          ]
+        }
+      ],
+      "phrase": "Elizabeth II died",
+      "reject": "\\bif\\b|\\bwhen\\b.{0,30}\\bdies\\b|what happens|what will happen|who will|operation (london bridge|unicorn)|si muere|que pasa|qué pasa|qué pasará|que pasará|se muore|cosa succede|cosa prevede|wenn .{0,40}stirbt|was passiert|quand .{0,40}mourra|que se passera|se morrer|o que acontece|protocol"
+    },
+    {
+      "id": "turkey-syria-2023",
+      "label": "Turkey–Syria earthquake",
+      "short": "Turkey quake",
+      "origin": "Pazarcık, Kahramanmaraş, Turkey",
+      "lat": 37.226,
+      "lon": 37.014,
+      "utc": "2023-02-06T01:17:34Z",
+      "public_utc": "2023-02-06T01:17:34Z",
+      "carrier": "the web",
+      "time_text": "04:17 Turkey time",
+      "context": "A magnitude 7.8 earthquake struck southern Turkey and northern Syria at 04:17 local time, before dawn. A second, of magnitude 7.5, followed nine hours later.",
+      "match": [
+        {
+          "pattern": "earthquake|quake|\\bdeprem|séisme|seisme|sismo|terremoto|erdbeben|trz[ęe]sienie|zemětřesení|potres|földrengés|aardbeving|jordskjelv|jordbävning|maanjäristys|землетрясени|землетрус|地震|지진|gempa|động đất|แผ่นดินไหว|زلزال|زلزله|רעידת|σεισμ|cutremur|zemljotres|земетресение|землетрус|zemetrasenie|lindol|tremor|jordskælv|maavärin|zemestrīce|žemės drebėjim",
+          "fields": [
+            "url",
+            "title"
+          ]
+        },
+        {
+          "pattern": "turkey|t[üu]rkiye|syria|gaziantep|kahramanmara|hatay|malatya|diyarbak|adana|osmaniye|adıyaman|adiyaman|aleppo|turqu|türkei|turchia|turcja|turecko|siri|syrie|syrien|сири|турци|土耳其|叙利亚|トルコ|シリア|터키|튀르키예|시리아|turki|سوريا|تركيا",
+          "fields": [
+            "url",
+            "title",
+            "names",
+            "places"
+          ]
+        }
+      ],
+      "phrase": "an earthquake struck Turkey and Syria"
+    }
+  ],
+  "_note_windows": "Search windows were shortened for speed where it cannot change the result: a paper is lost only if its first report fell after the window closed. Titanic and Pearl Harbor use front pages only; a paper that ran the story inside first is placed at its first front-page report, which can only make the news look slower.",
+  "_note_trust": "trust_search: the search terms only occur once the event has happened, so the Library's own text match confirms the paper. One page per paper is still read to keep a quotation; a paper whose quote can't be matched is kept and flagged 'search'. 'after-first-day' applies this only after the event day; same-day pages are read in full.",
+  "_note_floor": "first_valid is the earliest date a report can be genuine. For Ghent it is the evening HMS Favorite anchored off Sandy Hook, 11 February 1815; earlier 'peace signed' items in American papers were rumours or other treaties.",
+  "_note_reject": "reject_near: a match is skipped when these words appear within 300 characters of it, and reading moves on to the next match. For Ghent it removes a treaty with Indian tribes reported the same week. For Jackson it removes reports of his death that were denied as rumours, and the death of Sir Richard Jackson in Montreal the same week. A rumour mention is also skipped unless the passage says it was confirmed.",
+  "_note_web": "Web era: GDELT Global Knowledge Graph, English and translated files, from public_utc for 48 hours. A site counts at its first article whose address, title and extracted names, places and themes meet every rule in match. scripts/web_published.py then replaces GDELT's time with the publication time on the article's own page where there is one. Death words must be in the address or title, so articles about the Queen's health before the announcement do not count. Batches stamped at or before the event are skipped, because a batch holds what GDELT found in the 15 minutes before its stamp. For Elizabeth II, articles that ask what would happen if or when she died, or that describe the funeral plans, do not count. For Notre-Dame, articles are counted from 18:43 Paris time, when the fire was found; the clock still starts at the first alarm, 18:18. For the earthquake, a word for earthquake must appear in the article's address or title, because GDELT's themes alone also matched unrelated pages."
+}

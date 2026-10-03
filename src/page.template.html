@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Speed of News</title>
+<meta name="description" content="How long the news of eleven events took to reach American newspapers, and later news websites, in four eras between 1799 and 2023. A data study by Alex Corvin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#ebecea;
+  --ink:#1c1e21;
+  --ink-2:#55585e;
+  --ink-3:#8b8e93;
+  --hair:#d6d7d4;
+  --post:#ad7620;
+  --telegraph:#914355;
+  --radio:#009080;
+  --internet:#6172be;
+  --f:"Geist", "Helvetica Neue", Arial, sans-serif;
+  --f-mono:"Geist Mono", ui-monospace, Menlo, monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ground);color:var(--ink)}
+body{font-family:var(--f);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.sheet{max-width:1400px;margin:0 auto;padding-inline:clamp(16px,4vw,64px);padding-block:clamp(32px,6vw,80px) 48px}
+a{color:inherit;text-decoration-color:var(--ink-3);text-underline-offset:3px}
+:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+
+header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px 64px;align-items:start}
+@media (max-width:900px){header{grid-template-columns:minmax(0,1fr)}}
+h1{margin:0;font-weight:300;font-size:clamp(40px,5.2vw,72px);line-height:1;letter-spacing:-.03em}
+.sub{margin:18px 0 0;font-size:clamp(19px,1.7vw,23px);font-weight:400;line-height:1.3;color:var(--ink);max-width:30ch;text-wrap:balance}
+.deck{margin:18px 0 0;font-size:16px;color:var(--ink-2);max-width:50ch;text-wrap:pretty}
+.key{width:360px;max-width:100%}
+.key svg{display:block;width:100%;height:auto;overflow:visible}
+.key text{font-family:var(--f);font-size:11.5px;fill:var(--ink-2)}
+.key .kn{font-size:16px;fill:var(--ink);letter-spacing:-.01em}
+.key .h{font-size:11px;fill:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:var(--f-mono)}
+.swatches{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:12px;color:var(--ink-2)}
+.swatches span{display:inline-flex;align-items:center;gap:7px}
+.swatches i{width:16px;height:3px;display:inline-block}
+
+.figure{margin-top:clamp(40px,5vw,72px);overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch}
+.stage{position:relative;min-width:980px}
+.swipe{display:none;margin:10px 0 0;font-size:12px;color:var(--ink-3)}
+@media (max-width:700px){.swipe{display:block}}
+.stage canvas,.stage svg{position:absolute;left:0;top:0}
+.stage canvas{pointer-events:none}
+.stage svg{overflow:visible}
+.ax{font-family:var(--f-mono);font-size:10.5px;fill:var(--ink-3)}
+.hair{stroke:var(--hair);stroke-width:1}
+.base{stroke:var(--ink-3);stroke-width:1}
+.yr{font-size:26px;font-weight:300;letter-spacing:-.02em;fill:var(--ink)}
+.nm{font-size:12px;fill:var(--ink-2)}
+.md{font-size:15px;fill:var(--ink);letter-spacing:-.01em}
+.col.dim text{opacity:.35}
+.grp{font-family:var(--f-mono);font-size:10.5px;fill:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+.note{font-size:12px;fill:var(--ink-2)}
+.lead{stroke:var(--ink-3);stroke-width:.75;fill:none}
+
+.tip{position:absolute;z-index:3;pointer-events:none;width:300px;background:var(--ground);border:1px solid var(--hair);box-shadow:0 1px 0 rgba(0,0,0,.03);padding:12px 14px;font-size:13.5px;line-height:1.45;opacity:0;transition:opacity .12s}
+.tip.on{opacity:1}
+.tip b{font-weight:500}
+.tip .m{color:var(--ink-3);font-size:12px;margin-top:2px}
+.tip .w{margin-top:8px}
+.tip .s{margin-top:8px;color:var(--ink-2);font-size:12.5px}
+.tip .clip{margin-top:10px}
+.tip .clip img{display:block;width:100%;mix-blend-mode:multiply;filter:grayscale(1) contrast(1.05)}
+
+footer{margin-top:clamp(40px,5vw,64px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 64px;font-size:13px;color:var(--ink-2)}
+@media (max-width:900px){footer{grid-template-columns:minmax(0,1fr)}}
+footer p{margin:0;max-width:62ch;text-wrap:pretty}
+footer .by{color:var(--ink-3)}
+@media (prefers-reduced-motion:reduce){.tip{transition:none}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header>
+    <div>
+      <h1>The Speed of News</h1>
+      <p class="sub">How long the news of eleven events took to reach American newspapers, and later news websites, in four eras between 1799 and 2023</p>
+      <p class="deck" id="deck"></p>
+    </div>
+    <div class="key">
+      <svg id="key" viewBox="0 0 340 236" role="img" aria-label="How to read the figure"></svg>
+      <div class="swatches" id="swatches"></div>
+    </div>
+  </header>
+
+  <div class="figure">
+    <div class="stage" id="stage">
+      <canvas id="cv" aria-hidden="true"></canvas>
+      <canvas id="hl" aria-hidden="true"></canvas>
+      <svg id="fig" role="img" aria-label="Eleven plumes of lines in four eras, one plume per event, from 1799 to 2023. Each line is a newspaper or a news website, and its height is the time the news took to arrive, on a scale from one minute to four months."></svg>
+      <div class="tip" id="tip" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+  <p class="swipe">Swipe sideways to see all ten events.</p>
+
+  <footer>
+    <p>Each newspaper is placed at the first page in the Library of Congress's <a href="https://www.loc.gov/collections/chronicling-america/" target="_blank" rel="noopener">Chronicling America</a> collection whose text reports the event. Because a paper carries a date but not a time, its line ends in a soft stroke covering the whole day printed on it, and the half-way figures use the end of that day. <span id="dailyNote"></span> In the web era, each line is a news website, placed at the time printed on its first article about the event or, where the page gives none, at the time <a href="https://www.gdeltproject.org/" target="_blank" rel="noopener">GDELT</a>, which reads news sites around the world, found the article, which can be hours later. Those sites are drawn fainter, and the half-way figures count only the sites whose pages give a time. Each web plume draws 600 of its sites, chosen at random.</p>
+    <p class="by">The collection holds only the papers that libraries have digitized, and machine-read text misses words on faded pages, so some papers printed the news earlier than shown. <span id="by"></span></p>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+const INLINE = /*INLINE_DATA*/null;
+(async function () {
+const data = INLINE || await (await fetch('data.json', {cache: 'no-cache'})).json();
+const F = Object.fromEntries(data.fields.map((f, i) => [f, i]));
+const EV = data.events.filter(e => e.n > 0);
+const css = getComputedStyle(document.documentElement);
+const tok = k => css.getPropertyValue('--' + k).trim();
+const COL = {post: tok('post'), telegraph: tok('telegraph'), radio: tok('radio'), internet: tok('internet')};
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function dur(h) {
+  if (h < 1) { const m = Math.max(1, Math.round(h * 60)); return m + (m === 1 ? ' minute' : ' minutes'); }
+  if (h < 36) { const r = Math.round(h); return r + (r === 1 ? ' hour' : ' hours'); }
+  const d = Math.round(h / 24); return d + (d === 1 ? ' day' : ' days');
+}
+const longDate = iso => { const [y, m, d] = iso.slice(0, 10).split('-').map(Number); return `${d} ${MONTHS[m - 1]} ${y}`; };
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+
+const byEv = new Map(EV.map(e => [e.id, []]));
+for (const p of data.points) { const e = data.events[p[F.e]]; if (byEv.has(e.id)) byEv.get(e.id).push(p); }
+
+// the deck, written from the data
+const first = EV[0], last = EV[EV.length - 1];
+document.getElementById('deck').textContent = (
+  `When ${first.phrase} in ${first.year}, half of the newspapers that reported it needed ${dur(first.median_h)} to do so, and the slowest needed ${dur(first.max_h)}. ` +
+  `When ${last.phrase} in ${last.year}, half of the news websites that reported it had done so within ${dur(last.median_h)}.`).replace(/ (II|I|III)\b/g, '\u00a0$1');
+const firstDaily = EV.find(e => e.basis === 'daily');
+if (firstDaily) document.getElementById('dailyNote').textContent = `From ${firstDaily.year} on, they count only daily papers, because a weekly printed the news on its next issue day, however fast it had come. The weeklies are drawn fainter.`;
+document.getElementById('by').textContent = `A data study by Alex Corvin, ${data.generated.slice(0, 4)}.`;
+document.getElementById('swatches').innerHTML = data.eras.map(era => `<span><i style="background:${COL[era.group]}"></i>${era.name}</span>`).join('');
+
+const H_MIN = 1 / 60, H_MAX = data.max_days * 24, KM_MAX = 9000;
+const TICKS = [[1 / 60, '1 minute'], [1, '1 hour'], [24, '1 day'], [168, '1 week'], [720, '1 month'], [H_MAX, '4 months']];
+const stage = document.getElementById('stage'), cv = document.getElementById('cv'), hl = document.getElementById('hl'), svg = d3.select('#fig');
+let W, H, M, y, cols, dpr, focus = null, hover = null, pending = null, raf = 0;
+
+function layout() {
+  W = Math.max(stage.parentNode.clientWidth < 700 ? 1120 : 980, stage.parentNode.clientWidth);
+  H = Math.round(Math.max(670, Math.min(870, W * 0.52 + 114)));
+  M = {l: 78, r: 8, t: 178, b: 128};   // the top band holds the notes, in two rows
+  stage.style.width = W + 'px'; stage.style.height = H + 'px';
+  dpr = Math.min(2, window.devicePixelRatio || 1);
+  for (const el of [cv, hl]) { el.width = W * dpr; el.height = H * dpr; el.style.width = W + 'px'; el.style.height = H + 'px'; }
+  svg.attr('width', W).attr('height', H).attr('viewBox', `0 0 ${W} ${H}`);
+  const base = H - M.b;
+  y = d3.scaleLog().domain([H_MIN, H_MAX]).range([base - 16, M.t]).clamp(true);
+  // a gap between eras, because the years between them were not measured
+  const GAP = 0.45, nEras = d3.max(EV, e => e.era) + 1;
+  const cw = (W - M.l - M.r) / (EV.length + GAP * (nEras - 1));
+  cols = EV.map((e, i) => {
+    const x0 = M.l + (i + e.era * GAP) * cw;
+    return {e, x0, cw, ox: x0 + cw * 0.1, oy: base, spread: cw * 0.8};
+  });
+  for (const c of cols) {
+    const pts = byEv.get(c.e.id), n = pts.length, web = c.e.kind !== 'newspaper';
+    const sorted = web ? pts.slice().sort((a, b) => a[F.h_hi] - b[F.h_hi]) : pts;
+    sorted.forEach((p, i) => {
+      // websites have no distance, so they are spread evenly across a narrow fan
+      p.ex = web ? c.ox + c.spread * (0.04 + 0.5 * ((i * 0.6180339887) % 1))
+                  : c.ox + c.spread * Math.sqrt(Math.min(1, (p[F.km] ?? 0) / KM_MAX));
+      // a same-day paper's window starts at the event, so it is drawn starting a little later to keep the line rising
+      p.ylo = y(Math.max(H_MIN, p[F.h_lo], p[F.h_hi] / 8)); p.yhi = y(Math.max(H_MIN, p[F.h_hi]));
+      // a website timed by its own page is drawn at that time; one timed by GDELT was found somewhere in the
+      // 15 minutes before GDELT's batch, and is drawn at a spread point in that window
+      if (web) { const t = Math.max(H_MIN, p[F.geo] === 'page' ? p[F.h_hi] : p[F.h_hi] - 0.25 * ((i * 0.7548776662) % 1)); p.ylo = p.yhi = y(t); }
+    });
+    c.alpha = Math.max(0.03, Math.min(0.7, 1.9 / Math.sqrt(n)));
+    // where the half-way figure counts daily papers, weeklies are drawn fainter: they printed on their own schedule
+    // websites without a publication time of their own carry GDELT's later time, and are drawn fainter too
+    const counted = c.e.basis === 'daily' ? p => /daily/i.test(p[F.freq] || '') : c.e.basis === 'page' ? p => p[F.geo] === 'page' : null;
+    c.sets = counted ? [[pts.filter(p => !counted(p)), 0.4], [pts.filter(counted), 1]] : [[pts, 1]];
+  }
+  for (const c of cols) render(c);
+  draw(); drawHover(); drawSvg();
+}
+
+function curve(g, c, p) {
+  const dy = c.oy - p.ylo;
+  g.moveTo(c.ox, c.oy);
+  g.bezierCurveTo(c.ox, c.oy - dy * 0.55, p.ex, p.ylo + dy * 0.3, p.ex, p.ylo);
+}
+
+// Each plume is drawn once into its own layer. Hovering redraws only the layers and one
+// highlighted line on a separate canvas.
+function render(c) {
+  const x0 = Math.floor(c.x0), w = Math.ceil(c.cw) + 2;
+  const L = c.layer || (c.layer = document.createElement('canvas'));
+  L.width = w * dpr; L.height = H * dpr;
+  const g = L.getContext('2d');
+  g.setTransform(dpr, 0, 0, dpr, -x0 * dpr, 0);
+  g.globalCompositeOperation = 'multiply'; g.lineCap = 'round';
+  const col = d3.color(COL[c.e.group]), rgba = al => `rgba(${col.r},${col.g},${col.b},${al})`;
+  const web = c.e.kind !== 'newspaper', n = byEv.get(c.e.id).length;
+  // blurred copy: drawn at quarter size and scaled up
+  const S = 0.25, soft = document.createElement('canvas');
+  soft.width = Math.max(1, Math.ceil(w * S)); soft.height = Math.max(1, Math.ceil(H * S));
+  const sg = soft.getContext('2d');
+  sg.setTransform(S, 0, 0, S, -x0 * S, 0); sg.lineCap = 'round';
+  for (const [set, k] of c.sets) {
+    sg.strokeStyle = rgba(Math.min(1, c.alpha * k * 0.9)); sg.lineWidth = 6; sg.beginPath();
+    for (const p of set) curve(sg, c, p);
+    sg.stroke();
+  }
+  g.save(); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
+  g.drawImage(soft, 0, 0, w, H); g.restore();
+  // one line per paper or site
+  for (const [set, k] of c.sets) {
+    g.strokeStyle = rgba(c.alpha * k); g.lineWidth = 0.7; g.beginPath();
+    for (const p of set) curve(g, c, p);
+    g.stroke();
+  }
+  // arrival: a short stroke for the printed day, and a point where it ends
+  const dotA = Math.max(web ? 0.12 : 0.3, Math.min(0.85, 4 / Math.sqrt(n)));
+  for (const [set, k] of c.sets) {
+    if (!web) for (const p of set) {
+      if (p.ylo - p.yhi <= 1.5) continue;
+      const gr = g.createLinearGradient(0, p.ylo, 0, p.yhi);
+      gr.addColorStop(0, rgba(0)); gr.addColorStop(0.5, rgba(Math.min(1, c.alpha * k * 1.8))); gr.addColorStop(1, rgba(0));
+      g.strokeStyle = gr; g.lineWidth = 1.6; g.beginPath(); g.moveTo(p.ex, p.ylo); g.lineTo(p.ex, p.yhi); g.stroke();
+    }
+    g.fillStyle = rgba(dotA * k); g.beginPath();
+    for (const p of set) { g.moveTo(p.ex + 1.5, p.yhi); g.arc(p.ex, p.yhi, 1.5, 0, 7); }
+    g.fill();
+  }
+  g.fillStyle = rgba(1); g.beginPath(); g.arc(c.ox, c.oy, 3, 0, 7); g.fill();
+  c.lx = x0; c.lw = w;
+}
+
+function draw() {
+  const g = cv.getContext('2d');
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  g.clearRect(0, 0, cv.width, cv.height);
+  g.globalCompositeOperation = 'multiply';
+  for (const c of cols) {
+    g.globalAlpha = !focus || focus === c ? 1 : 0.22;
+    g.drawImage(c.layer, c.lx * dpr, 0);
+  }
+  g.globalAlpha = 1;
+}
+
+function drawHover() {
+  const g = hl.getContext('2d');
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  g.clearRect(0, 0, W, H);
+  if (!hover) return;
+  const [c, p] = hover;
+  g.strokeStyle = tok('ink'); g.lineCap = 'round';
+  g.lineWidth = 1.3; g.beginPath(); curve(g, c, p); g.stroke();
+  g.lineWidth = 2.4; g.beginPath(); g.moveTo(p.ex, p.ylo); g.lineTo(p.ex, p.yhi + 0.01); g.stroke();
+  g.fillStyle = tok('ink'); g.beginPath(); g.arc(p.ex, p.yhi, 3, 0, 7); g.fill();
+}
+
+function drawSvg() {
+  svg.selectAll('*').remove();
+  const base = H - M.b;
+  const ax = svg.append('g');
+  TICKS.forEach(([h, lab]) => {
+    ax.append('line').attr('class', 'hair').attr('x1', M.l - 6).attr('x2', W - M.r).attr('y1', y(h)).attr('y2', y(h));
+    ax.append('text').attr('class', 'ax').attr('x', 0).attr('y', y(h) + 3.5).text(lab);
+  });
+  ax.append('line').attr('class', 'base').attr('x1', M.l - 6).attr('x2', W - M.r).attr('y1', base).attr('y2', base);
+
+  const cg = svg.append('g').selectAll('g').data(cols).join('g').attr('class', 'col');
+  cg.append('text').attr('class', 'yr').attr('x', c => c.x0 + 2).attr('y', base + 36).text(c => c.e.year);
+  cg.append('text').attr('class', 'nm').attr('x', c => c.x0 + 2).attr('y', base + 57).text(c => c.e.short);
+  cg.append('text').attr('class', 'md').attr('x', c => c.x0 + 2).attr('y', base + 78).text(c => dur(c.e.median_h));
+
+  const gy = base + 104;
+  data.eras.forEach((era, k) => {
+    const cs = cols.filter(c => c.e.era === k); if (!cs.length) return;
+    const x1 = cs[0].x0 + 2, x2 = cs[cs.length - 1].x0 + cs[cs.length - 1].cw * 0.9;
+    svg.append('line').attr('class', 'hair').attr('x1', x1).attr('x2', x2).attr('y1', gy).attr('y2', gy);
+    svg.append('text').attr('class', 'grp').attr('x', x1).attr('y', gy + 16).text(era.name);
+  });
+
+  // notes sit in a band above the chart, in two rows; a hairline drops from each to the point it describes
+  const wrap = (text, n) => text.split(' ').reduce((ls, w) => { const l = ls[ls.length - 1]; if (l && (l + ' ' + w).length <= n) ls[ls.length - 1] = l + ' ' + w; else ls.push(w); return ls; }, []);
+  const note = (id, text, at, side, row) => {
+    const c = cols.find(c => c.e.id === id); if (!c) return;
+    const pts = byEv.get(id);
+    let px, py;
+    if (typeof at === 'function') { const p = pts.find(at); if (!p) return; px = p.ex; py = p.yhi; }
+    else if (at.origin) { px = c.ox; py = y(at.h); }
+    else { const p = pts.reduce((b, p) => Math.abs(Math.log(p[F.h_hi] / at.h)) < Math.abs(Math.log(b[F.h_hi] / at.h)) ? p : b, pts[0]); px = p.ex; py = p.yhi; }
+    const lines = wrap(text, 34), ty = 14 + row * 74;
+    svg.append('path').attr('class', 'lead').attr('d', `M${px},${py - 6} L${px},${ty - 10}`);
+    const x = px + (side === 'right' ? 8 : -8);
+    const t = svg.append('text').attr('class', 'note').attr('x', x).attr('y', ty).attr('text-anchor', side === 'right' ? 'start' : 'end');
+    lines.forEach((line, i) => t.append('tspan').attr('x', x).attr('dy', i ? 15 : 0).text(line + (i < lines.length - 1 ? ' ' : '')));
+  };
+  note('ghent-1814', 'Peace was signed on Christmas Eve 1814. Two weeks later, before the news had crossed the Atlantic, the two armies fought the Battle of New Orleans.', {h: 52 * 24}, 'right', 0);
+  note('lincoln-1865', "The day after Lincoln was shot, a paper in Gold Hill, Nevada, 3,600 km away, printed the news. Washington's death took six days to reach Richmond, 140 km from Mount Vernon.", p => /^Gold Hill/.test(p[F.place]), 'right', 1);
+  note('kennedy-1963', 'The first wire bulletin went out four minutes after the shots.', {origin: true, h: 4 / 60}, 'right', 0);
+  const liz = EV.find(e => e.id === 'elizabeth-2022');
+  if (liz && liz.public_lag_h) note('elizabeth-2022', `Her death was announced ${Math.floor(liz.public_lag_h)} hours and ${Math.round((liz.public_lag_h % 1) * 60)} minutes after she died. Within two hours of the announcement, at least ${liz.n_2h_after_public.toLocaleString('en')} news websites had published it.`, {h: liz.public_lag_h + 0.25}, 'left', 1);
+
+  svg.append('g').selectAll('rect').data(cols).join('rect')
+    .attr('x', c => c.x0).attr('y', M.t).attr('width', c => c.cw).attr('height', base + 80 - M.t)
+    .attr('fill', 'transparent')
+    .on('mouseenter', (ev, c) => { focus = c; svg.selectAll('.col').classed('dim', d => d !== c); draw(); })
+    .on('mousemove', (ev, c) => { pending = [ev, c]; if (!raf) raf = requestAnimationFrame(() => { raf = 0; if (pending) pick(...pending); pending = null; }); })
+    .on('mouseleave', () => { focus = null; hover = null; pending = null; svg.selectAll('.col').classed('dim', false); tip.classList.remove('on'); draw(); drawHover(); })
+    .on('click', (ev, c) => { pick(ev, c); if (hover && hover[1][F.url] && ev.pointerType === 'mouse') window.open(hover[1][F.url], '_blank', 'noopener'); });
+}
+
+// hover: the nearest arrival in the focused column
+const tip = document.getElementById('tip');
+function pick(ev, c) {
+  const b = stage.getBoundingClientRect(), mx = ev.clientX - b.left, my = ev.clientY - b.top;
+  let best = null, bd = 22;
+  for (const p of byEv.get(c.e.id)) {
+    const dy = my < p.yhi ? p.yhi - my : my > p.ylo ? my - p.ylo : 0;
+    const d = Math.hypot(mx - p.ex, dy);
+    if (d < bd) { bd = d; best = p; }
+  }
+  const next = best ? [c, best] : null;
+  if ((next && hover && next[1] === hover[1]) || (!next && !hover)) { if (next) place(mx, my); return; }
+  hover = next; drawHover();
+  if (!hover) { tip.classList.remove('on'); return; }
+  const p = best, web = c.e.kind !== 'newspaper';
+  const when = web
+    ? (p[F.geo] === 'page' ? `Published ${dur(p[F.h_hi])} after, by the time on its own page.` : `Found by GDELT ${dur(p[F.h_hi])} after; the page gives no time of its own.`)
+    : `Printed ${longDate(p[F.printed])}, ${span(p[F.h_lo], p[F.h_hi])} after.`;
+  const where = web ? (p[F.lang] !== 'eng' && LANG[p[F.lang]] ? LANG[p[F.lang]] + ' headline' : '') : esc(p[F.place]) + (p[F.km] != null ? `, ${Math.round(p[F.km]).toLocaleString('en')} km away` : '');
+  // websites show their headline; newspapers show the printed page itself, cropped to the report
+  tip.innerHTML = `<b>${esc(p[F.name])}</b><div class="m">${where}</div><div class="w">${when}</div>` +
+    (web && p[F.snippet] ? `<div class="s">${esc(p[F.snippet].slice(0, 160))}</div>` : '') +
+    (!web && p[F.iiif] ? '<div class="clip"></div>' : '');
+  tip.classList.add('on'); place(mx, my);
+  if (!web && p[F.iiif]) clipping(c.e, p).then(src => {
+    if (!src || !hover || hover[1] !== p) return;
+    const box = tip.querySelector('.clip'); if (!box) return;
+    const img = new Image(); img.alt = ''; img.onload = () => { box.appendChild(img); place(mx, my); }; img.src = src;
+  });
+}
+
+const LANG = {eng: 'English', spa: 'Spanish', fra: 'French', deu: 'German', ita: 'Italian', por: 'Portuguese', rus: 'Russian', zho: 'Chinese', jpn: 'Japanese', kor: 'Korean', ara: 'Arabic', tur: 'Turkish', nld: 'Dutch', pol: 'Polish', ces: 'Czech', slk: 'Slovak', hun: 'Hungarian', ron: 'Romanian', bul: 'Bulgarian', srp: 'Serbian', hrv: 'Croatian', slv: 'Slovenian', ell: 'Greek', heb: 'Hebrew', fas: 'Persian', hin: 'Hindi', ben: 'Bengali', urd: 'Urdu', ind: 'Indonesian', msa: 'Malay', vie: 'Vietnamese', tha: 'Thai', ukr: 'Ukrainian', swe: 'Swedish', nor: 'Norwegian', nob: 'Norwegian', dan: 'Danish', fin: 'Finnish', est: 'Estonian', lav: 'Latvian', lit: 'Lithuanian', cat: 'Catalan', glg: 'Galician', eus: 'Basque', sqi: 'Albanian', mkd: 'Macedonian', bos: 'Bosnian', aze: 'Azerbaijani', kat: 'Georgian', hye: 'Armenian', tam: 'Tamil', tel: 'Telugu', mar: 'Marathi', guj: 'Gujarati', pan: 'Punjabi', mal: 'Malayalam', kan: 'Kannada', afr: 'Afrikaans', swa: 'Swahili', tgl: 'Tagalog'};
+
+// "2 to 3 days", "within 18 hours"
+function span(lo, hi) {
+  if (lo < 1) return 'within ' + dur(hi);
+  const a = dur(lo), b = dur(hi), ua = a.replace(/^\d+ /, ''), ub = b.replace(/^\d+ /, '');
+  if (a === b) return a;
+  return ua.replace(/s$/, '') === ub.replace(/s$/, '') ? `${parseInt(a)} to ${b}` : `${a} to ${b}`;
+}
+
+// Crop of the printed page: the Library's word-coordinate service locates the search words,
+// and the image server crops around the spot where most of them appear together.
+const clipCache = new Map();
+function clipping(e, p) {
+  const key = p[F.iiif];
+  if (clipCache.has(key)) return clipCache.get(key);
+  const sid = decodeURIComponent(key.split('image-services/iiif/')[1] || '');
+  const seg = '/service/' + sid.replace('service:', '').split(':').join('/') + '.xml';
+  const words = [...new Set(((p[F.match] || '') + ' ' + (e.q || []).join(' ')).toLowerCase().match(/[a-z]{4,}/g) || [])].slice(0, 6);
+  const job = fetch('https://tile.loc.gov/text-services/word-coordinates-service?' + new URLSearchParams({segment: seg, format: 'alto_xml', q: words.join(' ')}))
+    .then(r => r.ok ? r.json() : null).then(j => {
+      const v = j && Object.values(j)[0]; if (!v || !v.searchTerms) return '';
+      const pw = +v.width, ph = +v.height; if (!pw || !ph) return '';
+      const hits = Object.entries(v.searchTerms).flatMap(([t, bs]) => bs.map(b => ({t, x: b[0], y: b[1], w: b[2], h: b[3]})));
+      if (!hits.length) return '';
+      let best = null, bestScore = -1;
+      for (const a of hits) {
+        const near = new Set(hits.filter(b => Math.abs(b.x - a.x) < pw * 0.12 && Math.abs(b.y - a.y) < ph * 0.03).map(b => b.t));
+        // ties go to larger type (a headline), then to the higher position
+        if (near.size > bestScore || (near.size === bestScore && (a.h > best.h * 1.15 || (a.h >= best.h / 1.15 && a.y < best.y)))) { best = a; bestScore = near.size; }
+      }
+      const cw = pw * 0.2, chh = ph * 0.075;
+      const x = Math.max(0, Math.min(pw - cw, best.x - cw * 0.3)), yy = Math.max(0, Math.min(ph - chh, best.y - chh * 0.25));
+      const pct = [x / pw, yy / ph, cw / pw, chh / ph].map(n => (n * 100).toFixed(2)).join(',');
+      return `${key}/pct:${pct}/560,/0/default.jpg`;
+    }).catch(() => '');
+  clipCache.set(key, job);
+  return job;
+}
+function place(mx, my) {
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  let x = mx + 16, yy = my - h - 12;
+  if (x + w > W) x = mx - w - 16;
+  if (yy < 0) yy = my + 16;
+  tip.style.left = x + 'px'; tip.style.top = yy + 'px';
+}
+
+// the reading key
+function drawKey() {
+  const k = d3.select('#key'), ink = tok('ink-2');
+  k.append('text').attr('class', 'h').attr('x', 0).attr('y', 10).text('How to read it');
+  const ox = 34, oy = 150;
+  const ends = [[18, 96], [34, 84], [50, 74], [66, 66], [84, 54], [100, 46], [116, 36]];
+  const g = k.append('g');
+  ends.forEach(([dx, dy]) => {
+    const ex = ox + dx, ey = oy - dy, h = oy - ey;
+    g.append('path').attr('d', `M${ox},${oy} C${ox},${oy - h * 0.55} ${ex},${ey + h * 0.3} ${ex},${ey}`).attr('fill', 'none').attr('stroke', ink).attr('stroke-width', .7).attr('opacity', .75);
+    g.append('line').attr('x1', ex).attr('x2', ex).attr('y1', ey).attr('y2', ey - 10).attr('stroke', ink).attr('stroke-width', 1.6).attr('stroke-linecap', 'round').attr('opacity', .45);
+  });
+  g.append('circle').attr('cx', ox).attr('cy', oy).attr('r', 3).attr('fill', tok('ink'));
+  const lab = (x, yy, t, anchor) => { const tx = k.append('text').attr('x', x).attr('y', yy).attr('text-anchor', anchor || 'start'); t.forEach((s, i) => tx.append('tspan').attr('x', x).attr('dy', i ? 14 : 0).text(s)); };
+  const lead = d => k.append('path').attr('class', 'lead').attr('d', d);
+  lead(`M14,${oy} V${oy - 104}`); lead(`M11,${oy - 98} L14,${oy - 104} L17,${oy - 98}`);
+  lab(ox + 8, oy + 4, ['the event']);
+  k.append('text').attr('transform', `translate(6,${oy - 20}) rotate(-90)`).text('time');
+  lead(`M${ox},${oy + 30} H${ox + 118}`); lead(`M${ox + 112},${oy + 27} L${ox + 118},${oy + 30} L${ox + 112},${oy + 33}`);
+  lab(ox + 126, oy + 34, ['distance from the event']);
+  lead(`M${ox + 60},${oy - 38} H190`); lab(196, oy - 34, ['one newspaper, or one', 'news website']);
+  lead(`M${ox + 120},${oy - 104} H190`); lab(196, oy - 100, ['soft end: the day printed', 'on the paper']);
+  k.append('text').attr('class', 'kn').attr('x', 0).attr('y', oy + 76).text('18 days');
+  lab(70, oy + 70, ['under each event: the time by which half', 'its papers, or websites, had the news']);
+}
+
+drawKey();
+layout();
+let lastW = stage.parentNode.clientWidth;
+let rt = 0;
+new ResizeObserver(() => { const w = stage.parentNode.clientWidth; if (w === lastW) return; clearTimeout(rt); rt = setTimeout(() => { lastW = stage.parentNode.clientWidth; layout(); }, 150); }).observe(document.body);
+
+// report the page height to an embedding page
+let lastH = 0;
+const post = () => { const h = Math.ceil(document.documentElement.scrollHeight); if (h !== lastH) { lastH = h; window.parent.postMessage({type: 'news-travel-time-height', height: h}, '*'); } };
+new ResizeObserver(post).observe(document.body); post();
+})();
+</script>
+</body>
+</html>
