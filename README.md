@@ -4,6 +4,21 @@ How long the news of eleven events took to reach American newspapers, and later 
 
 **[View the poster](https://acorvin.github.io/news-travel-time/)**
 
+## The problem
+
+It is easy to say that news travels faster today than it did two centuries ago. I wanted to measure by how much, with one method across eleven events from 1799 to 2023: how long it took half of the newspapers, and later the news websites, that reported an event to do so. The sources were never built for this. Old newspapers carry a date but no time, scanned pages are read by OCR with errors, early reports include false rumors, and GDELT records when its crawler found an article rather than when it was published.
+
+## What I did
+
+For eight events from 1799 to 1963, I searched the Library of Congress's Chronicling America and read each paper's pages in date order to find its first real report. For three web-era events, I used GDELT's article lists and each site's own publication time wherever the page gives one. I found and corrected false matches, such as a rumor of the Treaty of Ghent and premature reports of Andrew Jackson's death, and built an interactive poster that draws each event as a plume of arrival times.
+
+## What it found
+
+- When George Washington died in 1799, half of the newspapers that reported it needed 18 days.
+- When an earthquake hit Turkey and Syria in 2023, half of the news websites that covered it had published within 7 hours.
+
+## What the poster shows
+
 Each event is drawn as a plume of lines rising from the moment it happened. Every line is one newspaper or one news website, and its height is the time the news took to reach it, on a scale from one minute to four months. Hover over a line to see the paper or site, the place and the passage that carried the news.
 
 The study compares four eras. It does not measure the years between them, and the page shows them as gaps.
